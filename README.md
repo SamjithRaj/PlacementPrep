@@ -1,5 +1,5 @@
 <p align="center">
-<img src="https://www.google.com/search?q=https://placehold.co/1200x300/6366f1/FFFFFF/png%3Ftext%3DSRB%27s%2BPlacement%2BJourney" alt="Samjith Raj Bondla's Placement Journey Header"/>
+<img src="https://www.google.com/search?q=https://placehold.co/1200x300/6366f1/FFFFFF/png%3Ftext%3DSRB%27s%2BPlacement%2BJourney" alt="SRB's Placement Journey Header"/>
 </p>
 
 <p align="center">
@@ -15,6 +15,9 @@ A meticulous, interactive dashboard to track and visualize the entire preparatio
 </a>
 </p>
 
+<p align="center">
+<em>(Update the "Live Demo" link above once you host the project!)</em>
+</p>
 
 <p align="center">
 <img src="https://www.google.com/search?q=https://placehold.co/1200x600/111827/FFFFFF/png%3Ftext%3DApplication%2BShowcase" alt="Placement Journey Tracker Showcase">
