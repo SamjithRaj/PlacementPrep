@@ -1,0 +1,876 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta viewport content="width=device-width, initial-scale=1.0">
+    <title>SRB's Placement Journey</title>
+    <style>
+        :root {
+            --primary: #6366f1;
+            --primary-dark: #4f46e5;
+            --secondary: #ec4899;
+            --success: #10b981;
+            --warning: #f59e0b;
+            --danger: #ef4444;
+            --dark: #1f2937;
+            --light: #f8fafc;
+            --border: #e2e8f0;
+            --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            --gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: var(--gradient);
+            min-height: 100vh;
+            color: var(--dark);
+            line-height: 1.6;
+        }
+
+        .header {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            box-shadow: var(--shadow);
+            padding: 2rem 0;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .header-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1rem;
+        }
+
+        .hero {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .hero h1 {
+            font-size: 2.5rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 0.5rem;
+        }
+
+        .hero p {
+            color: #64748b;
+            font-size: 1.1rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .target-date {
+            display: inline-block;
+            background: var(--primary);
+            color: white;
+            padding: 0.5rem 1.5rem;
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+
+        .stats-dashboard {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+
+        .stat-card {
+            background: white;
+            border-radius: 16px;
+            padding: 1.5rem;
+            box-shadow: var(--shadow);
+            border: 1px solid var(--border);
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+        }
+
+        .stat-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 1rem;
+        }
+
+        .stat-icon {
+            width: 48px;
+            height: 48px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            color: white;
+        }
+
+        .stat-icon.problems { background: var(--primary); }
+        .stat-icon.projects { background: var(--secondary); }
+        .stat-icon.progress { background: var(--success); }
+        .stat-icon.streak { background: var(--warning); }
+
+        .stat-value {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--dark);
+            margin-bottom: 0.25rem;
+        }
+
+        .stat-label {
+            color: #64748b;
+            font-size: 0.875rem;
+            font-weight: 500;
+        }
+
+        .progress-ring {
+            width: 60px;
+            height: 60px;
+        }
+
+        .progress-ring circle {
+            fill: none;
+            stroke-width: 4;
+        }
+
+        .progress-ring .bg {
+            stroke: #e2e8f0;
+        }
+
+        .progress-ring .progress {
+            stroke: var(--primary);
+            stroke-linecap: round;
+            transition: stroke-dashoffset 0.5s ease;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem 1rem;
+        }
+
+        .timeline {
+            position: relative;
+            margin: 2rem 0;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 2rem;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: var(--border);
+        }
+
+        .phase {
+            margin-bottom: 2rem;
+            position: relative;
+        }
+
+        .phase-marker {
+            position: absolute;
+            left: 1.25rem;
+            top: 1.5rem;
+            width: 1.5rem;
+            height: 1.5rem;
+            border-radius: 50%;
+            background: white;
+            border: 3px solid var(--border);
+            transition: all 0.3s ease;
+        }
+
+        .phase.completed .phase-marker {
+            background: var(--success);
+            border-color: var(--success);
+        }
+
+        .phase.active .phase-marker {
+            background: var(--primary);
+            border-color: var(--primary);
+            box-shadow: 0 0 0 4px rgba(99, 102, 241, 0.2);
+        }
+
+        .phase-content {
+            margin-left: 4rem;
+        }
+
+        .phase-card {
+            background: white;
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            border: 1px solid var(--border);
+        }
+
+        .phase-header {
+            padding: 1.5rem;
+            cursor: pointer;
+            transition: background 0.2s ease;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .phase-header:hover {
+            background: #f8fafc;
+        }
+
+        .phase-title {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 0.5rem;
+        }
+
+        .phase-name {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--dark);
+        }
+
+        .phase-dates {
+            color: #64748b;
+            font-size: 0.9rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .phase-stats {
+            display: flex;
+            gap: 2rem;
+            align-items: center;
+        }
+
+        .phase-progress {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .phase-progress-bar {
+            width: 120px;
+            height: 6px;
+            background: #e2e8f0;
+            border-radius: 3px;
+            overflow: hidden;
+        }
+
+        .phase-progress-fill {
+            height: 100%;
+            background: var(--primary);
+            border-radius: 3px;
+            transition: width 0.5s ease;
+        }
+
+        .phase-body {
+            display: none;
+            padding: 0;
+        }
+
+        .phase-body.expanded {
+            display: block;
+        }
+
+        .month-grid {
+            display: grid;
+            gap: 1px;
+            background: var(--border);
+        }
+
+        .month {
+            background: white;
+            padding: 1.5rem;
+        }
+
+        .month-header {
+            display: flex;
+            align-items: center;
+            justify-content: between;
+            margin-bottom: 1rem;
+            cursor: pointer;
+        }
+
+        .month-title {
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: var(--dark);
+        }
+
+        .month-progress {
+            margin-left: auto;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.875rem;
+            color: #64748b;
+        }
+
+        .month-tasks {
+            display: none;
+            margin-top: 1rem;
+        }
+
+        .month-tasks.expanded {
+            display: block;
+        }
+
+        .week {
+            margin-bottom: 1.5rem;
+            padding: 1rem;
+            background: #f8fafc;
+            border-radius: 12px;
+            border-left: 4px solid var(--primary);
+        }
+
+        .week.completed {
+            border-left-color: var(--success);
+            background: #f0fdf4;
+        }
+
+        .week-title {
+            font-weight: 600;
+            margin-bottom: 0.75rem;
+            color: var(--dark);
+        }
+
+        .task {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 0.75rem;
+            margin: 0.5rem 0;
+            background: white;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            border: 1px solid transparent;
+        }
+
+        .task:hover {
+            border-color: var(--primary);
+            transform: translateX(4px);
+        }
+
+        .task.completed {
+            background: #f0fdf4;
+            border-color: var(--success);
+        }
+
+        .task.completed .task-text {
+            text-decoration: line-through;
+            color: #6b7280;
+        }
+
+        .task-checkbox {
+            width: 20px;
+            height: 20px;
+            border: 2px solid var(--border);
+            border-radius: 4px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.75rem;
+            transition: all 0.2s ease;
+            flex-shrink: 0;
+        }
+
+        .task.completed .task-checkbox {
+            background: var(--success);
+            border-color: var(--success);
+            color: white;
+        }
+
+        .task-text {
+            flex: 1;
+            font-size: 0.9rem;
+        }
+
+        .task-xp {
+            font-size: 0.75rem;
+            color: var(--primary);
+            font-weight: 600;
+            background: rgba(99, 102, 241, 0.1);
+            padding: 0.25rem 0.5rem;
+            border-radius: 12px;
+        }
+
+        .project-task {
+            background: linear-gradient(135deg, #fef3c7, #fde68a);
+            border-left: 4px solid var(--warning);
+        }
+
+        .project-task:hover {
+            border-color: var(--warning);
+        }
+
+        .resources-section {
+            background: white;
+            border-radius: 16px;
+            padding: 2rem;
+            margin: 2rem 0;
+            box-shadow: var(--shadow);
+        }
+
+        .resources-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin-top: 1.5rem;
+        }
+
+        .resource-category {
+            background: #f8fafc;
+            border-radius: 12px;
+            padding: 1.5rem;
+            border: 1px solid var(--border);
+        }
+
+        .resource-title {
+            font-weight: 600;
+            color: var(--primary);
+            margin-bottom: 1rem;
+            font-size: 1.1rem;
+        }
+
+        .resource-list {
+            list-style: none;
+        }
+
+        .resource-item {
+            padding: 0.5rem 0;
+            border-bottom: 1px solid #e2e8f0;
+            font-size: 0.9rem;
+            color: #4b5563;
+        }
+
+        .resource-item:last-child {
+            border-bottom: none;
+        }
+
+        .company-tiers {
+            background: white;
+            border-radius: 16px;
+            padding: 2rem;
+            margin: 2rem 0;
+            box-shadow: var(--shadow);
+        }
+
+        .tier-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin-top: 1.5rem;
+        }
+
+        .tier-card {
+            border-radius: 12px;
+            padding: 1.5rem;
+            color: white;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .tier-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: inherit;
+            opacity: 0.9;
+        }
+
+        .tier-card > * {
+            position: relative;
+            z-index: 1;
+        }
+
+        .tier1 { background: linear-gradient(135deg, #f59e0b, #d97706); }
+        .tier2 { background: linear-gradient(135deg, #8b5cf6, #7c3aed); }
+        .tier3 { background: linear-gradient(135deg, #06b6d4, #0891b2); }
+
+        .tier-title {
+            font-size: 1.25rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+
+        .tier-salary {
+            font-size: 0.9rem;
+            opacity: 0.9;
+            margin-bottom: 1rem;
+        }
+
+        .company-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+        }
+
+        .company-tag {
+            background: rgba(255, 255, 255, 0.2);
+            padding: 0.25rem 0.75rem;
+            border-radius: 12px;
+            font-size: 0.8rem;
+            font-weight: 500;
+        }
+
+        .floating-controls {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            z-index: 100;
+        }
+
+        .control-btn {
+            width: 56px;
+            height: 56px;
+            border-radius: 50%;
+            border: none;
+            background: var(--primary);
+            color: white;
+            font-size: 1.25rem;
+            cursor: pointer;
+            box-shadow: var(--shadow);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s ease;
+        }
+
+        .control-btn:hover {
+            background: var(--primary-dark);
+            transform: scale(1.05);
+        }
+
+        .control-btn.reset {
+            background: var(--danger);
+        }
+
+        .control-btn.reset:hover {
+            background: #dc2626;
+        }
+
+        .achievement-toast {
+            position: fixed;
+            top: 100px;
+            right: 2rem;
+            background: white;
+            border-radius: 12px;
+            padding: 1rem 1.5rem;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+            border-left: 4px solid var(--success);
+            transform: translateX(400px);
+            transition: transform 0.3s ease;
+            z-index: 1001;
+            min-width: 300px;
+        }
+
+        .achievement-toast.show {
+            transform: translateX(0);
+        }
+
+        .toast-header {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-weight: 600;
+            color: var(--success);
+            margin-bottom: 0.25rem;
+        }
+
+        .daily-schedule {
+            background: white;
+            border-radius: 16px;
+            padding: 2rem;
+            margin: 2rem 0;
+            box-shadow: var(--shadow);
+        }
+
+        .schedule-grid {
+            display: grid;
+            gap: 1rem;
+            margin-top: 1.5rem;
+        }
+
+        .schedule-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 1rem;
+            background: #f8fafc;
+            border-radius: 8px;
+            border-left: 4px solid var(--primary);
+        }
+
+        .schedule-time {
+            font-weight: 600;
+            color: var(--primary);
+        }
+
+        .schedule-activity {
+            color: var(--dark);
+        }
+
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2rem;
+            }
+            
+            .stats-dashboard {
+                grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            }
+            
+            .timeline::before {
+                left: 1rem;
+            }
+            
+            .phase-content {
+                margin-left: 2.5rem;
+            }
+            
+            .floating-controls {
+                bottom: 1rem;
+                right: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <div class="header-content">
+            <div class="hero">
+                <h1>SRB's Placement Journey</h1>
+                <p>Samjith Raj Bondla's Path to Landing a ₹50+ LPA Job</p>
+                <div class="target-date">🎯 Target: June 2026</div>
+            </div>
+            
+            <div class="stats-dashboard">
+                <div class="stat-card">
+                    <div class="stat-header">
+                        <div>
+                            <div class="stat-value" id="total-problems">0</div>
+                            <div class="stat-label">Problems Solved</div>
+                        </div>
+                        <div class="stat-icon problems">💻</div>
+                    </div>
+                </div>
+                
+                <div class="stat-card">
+                    <div class="stat-header">
+                        <div>
+                            <div class="stat-value" id="total-projects">0</div>
+                            <div class="stat-label">Projects Built</div>
+                        </div>
+                        <div class="stat-icon projects">🚀</div>
+                    </div>
+                </div>
+                
+                <div class="stat-card">
+                    <div class="stat-header">
+                        <div>
+                            <div class="stat-value" id="overall-progress">0%</div>
+                            <div class="stat-label">Overall Progress</div>
+                        </div>
+                        <svg class="progress-ring" width="60" height="60">
+                            <circle class="bg" cx="30" cy="30" r="26" stroke-dasharray="163.36" stroke-dashoffset="0"></circle>
+                            <circle class="progress" cx="30" cy="30" r="26" stroke-dasharray="163.36" stroke-dashoffset="163.36" id="progress-circle"></circle>
+                        </svg>
+                    </div>
+                </div>
+                
+                <div class="stat-card">
+                    <div class="stat-header">
+                        <div>
+                            <div class="stat-value" id="current-streak">0</div>
+                            <div class="stat-label">Day Streak</div>
+                        </div>
+                        <div class="stat-icon streak">🔥</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <!-- Daily Schedule -->
+        <div class="daily-schedule">
+            <h2>📅 Your Daily Battle Plan</h2>
+            <div class="schedule-grid">
+                <div class="schedule-item">
+                    <div class="schedule-time">5:00-6:00 PM</div>
+                    <div class="schedule-activity">Theory & Reading (Light Study)</div>
+                </div>
+                <div class="schedule-item">
+                    <div class="schedule-time">8:00-10:00 PM</div>
+                    <div class="schedule-activity">Intensive DSA + Coding Practice</div>
+                </div>
+                <div class="schedule-item">
+                    <div class="schedule-time">Saturday Morning</div>
+                    <div class="schedule-activity">3-4 Hours Deep Practice</div>
+                </div>
+                <div class="schedule-item">
+                    <div class="schedule-time">Sunday Morning</div>
+                    <div class="schedule-activity">2-3 Hours + Project Work</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Timeline -->
+        <div class="timeline">
+            <!-- Phase 1: Foundation Building -->
+            <div class="phase active" data-phase="1">
+                <div class="phase-marker"></div>
+                <div class="phase-content">
+                    <div class="phase-card">
+                        <div class="phase-header" onclick="togglePhase(1)">
+                            <div class="phase-title">
+                                <div>
+                                    <div class="phase-name">Phase 1: Foundation Building</div>
+                                    <div class="phase-dates">September 2025 - December 2025</div>
+                                    <div class="phase-stats">
+                                        <div class="phase-progress">
+                                            <span id="phase1-text">0/4 months completed</span>
+                                            <div class="phase-progress-bar">
+                                                <div class="phase-progress-fill" id="phase1-progress" style="width: 0%"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="phase-body" id="phase1-body">
+                            <div class="month-grid">
+                                <!-- September 2025 -->
+                                <div class="month" data-month="sept2025">
+                                    <div class="month-header" onclick="toggleMonth('sept2025')">
+                                        <div class="month-title">🍂 September 2025: DSA Basics</div>
+                                        <div class="month-progress">
+                                            <span id="sept2025-progress">0/6 tasks</span>
+                                        </div>
+                                    </div>
+                                    <div class="month-tasks" id="sept2025-tasks">
+                                        <div class="week">
+                                            <div class="week-title">Week 1-2: Arrays & Strings 📊</div>
+                                            <div class="task" onclick="completeTask(this, 15)" data-task="arrays-strings-theory">
+                                                <div class="task-checkbox">✓</div>
+                                                <div class="task-text">Study Arrays & Strings theory from GeeksforGeeks</div>
+                                                <div class="task-xp">+15 XP</div>
+                                            </div>
+                                            <div class="task" onclick="completeTask(this, 25)" data-task="two-pointers">
+                                                <div class="task-checkbox">✓</div>
+                                                <div class="task-text">Master Two Pointers technique (8 problems)</div>
+                                                <div class="task-xp">+25 XP</div>
+                                            </div>
+                                            <div class="task" onclick="completeTask(this, 25)" data-task="sliding-window">
+                                                <div class="task-checkbox">✓</div>
+                                                <div class="task-text">Practice Sliding Window problems (7 problems)</div>
+                                                <div class="task-xp">+25 XP</div>
+                                            </div>
+                                            <div class="task" onclick="completeTask(this, 20)" data-task="string-patterns">
+                                                <div class="task-checkbox">✓</div>
+                                                <div class="task-text">Solve String Pattern Matching (5 problems)</div>
+                                                <div class="task-xp">+20 XP</div>
+                                            </div>
+                                        </div>
+                                        
+                                        <div class="week">
+                                            <div class="week-title">Week 3-4: Linked Lists & Stacks/Queues ⛓️</div>
+                                            <div class="task" onclick="completeTask(this, 30)" data-task="linked-list-problems">
+                                                <div class="task-checkbox">✓</div>
+                                                <div class="task-text">Solve 15 Linked List problems (reverse, detect cycles)</div>
+                                                <div class="task-xp">+30 XP</div>
+                                            </div>
+                                            <div class="task project-task" onclick="completeTask(this, 50, true)" data-task="calculator-project">
+                                                <div class="task-checkbox">✓</div>
+                                                <div class="task-text">🏗️ Build Stack-based Calculator in C++</div>
+                                                <div class="task-xp">+50 XP</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- October 2025 -->
+                                <div class="month" data-month="oct2025">
+                                    <div class="month-header" onclick="toggleMonth('oct2025')">
+                                        <div class="month-title">🎃 October 2025: Trees & Recursion</div>
+                                        <div class="month-progress">
+                                            <span id="oct2025-progress">0/4 tasks</span>
+                                        </div>
+                                    </div>
+                                    <div class="month-tasks" id="oct2025-tasks">
+                                        <div class="week">
+                                            <div class="week-title">Week 1-2: Binary Trees 🌳</div>
+                                            <div class="task" onclick="completeTask(this, 35)" data-task="tree-problems">
+                                                <div class="task-checkbox">✓</div>
+                                                <div class="task-text">Solve 25 Binary Tree problems (DFS, BFS, construction)</div>
+                                                <div class="task-xp">+35 XP</div>
+                                            </div>
+                                            <div class="task" onclick="completeTask(this, 20)" data-task="cpp-stl">
+                                                <div class="task-checkbox">✓</div>
+                                                <div class="task-text">Master C++ STL usage & memory management</div>
+                                                <div class="task-xp">+20 XP</div>
+                                            </div>
+                                        </div>
+                                        
+                                        <div class="week">
+                                            <div class="week-title">Week 3-4: Binary Search Trees 🔍</div>
+                                            <div class="task" onclick="completeTask(this, 30)" data-task="bst-problems">
+                                                <div class="task-checkbox">✓</div>
+                                                <div class="task-text">Solve 20 BST problems (search, insert, delete)</div>
+                                                <div class="task-xp">+30 XP</div>
+                                            </div>
+                                            <div class="task project-task" onclick="completeTask(this, 60, true)" data-task="bst-visualizer">
+                                                <div class="task-checkbox">✓</div>
+                                                <div class="task-text">🏗️ Build BST Visualization Tool</div>
+                                                <div class="task-xp">+60 XP</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- November 2025 -->
+                                <div class="month" data-month="nov2025">
+                                    <div class="month-header" onclick="toggleMonth('nov2025')">
+                                        <div class="month-title">🦃 November 2025: Recursion & Backtracking</div>
+                                        <div class="month-progress">
+                                            <span id="nov2025-progress">0/3 tasks</span>
+                                        </div>
+                                    </div>
+                                    <div class="month-tasks" id="nov2025-tasks">
+                                        <div class="week">
+                                            <div class="week-title">Week 1-2: Recursion Fundamentals 🔄</div>
+                                            <div class="task" onclick="completeTask(this, 25)" data-task="recursion-problems">
+                                                <div class="task-checkbox">✓</div>
+                                                <div class="task-text">Solve 20 recursion problems (factorial, Fibonacci, trees)</div>
+                                                <div class="task-xp">+25 XP</div>
+                                            </div>
+                                        </div>
+                                        
+                                        <div class="week">
+                                            <div class="week-title">Week 3-4: Backtracking 🔙</div>
+                                            <div class="task" onclick="completeTask(this, 30)" data-task="backtracking-problems">
+                                                <div class="task-checkbox">✓</div>
+                                                <div class="task-text">Solve 15 backtracking problems (N-Queens, Sudoku)</div>
+                                                <div class="task-xp">+30 XP</div>
+                                            </div>
+                                            <div class="task project-task" onclick="completeTask(this, 70, true)" data-task="sudoku-solver">
+                                                <div
