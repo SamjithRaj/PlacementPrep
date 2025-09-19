@@ -2,21 +2,42 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta viewport content="width=device-width, initial-scale=1.0">
-    <title>SRB's Placement Journey</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Samjith Raj Bondla's Placement Journey</title>
+    <!-- Google Fonts: Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <!-- Phosphor Icons for a clean, professional look -->
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
     <style>
         :root {
+            /* Color Palette */
             --primary: #6366f1;
             --primary-dark: #4f46e5;
             --secondary: #ec4899;
             --success: #10b981;
             --warning: #f59e0b;
             --danger: #ef4444;
-            --dark: #1f2937;
-            --light: #f8fafc;
-            --border: #e2e8f0;
-            --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
-            --gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.1);
+            
+            /* Light Mode (Default) */
+            --bg-color: #f8fafc;
+            --card-color: #ffffff;
+            --text-color: #1f2937;
+            --text-color-secondary: #64748b;
+            --border-color: #e2e8f0;
+            --header-bg: rgba(255, 255, 255, 0.85);
+        }
+
+        .dark-mode {
+            /* Dark Mode Variables */
+            --bg-color: #111827;
+            --card-color: #1f2937;
+            --text-color: #f8fafc;
+            --text-color-secondary: #9ca3af;
+            --border-color: #374151;
+            --header-bg: rgba(31, 41, 55, 0.85);
         }
 
         * {
@@ -25,23 +46,35 @@
             box-sizing: border-box;
         }
 
-        body {
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-            background: var(--gradient);
-            min-height: 100vh;
-            color: var(--dark);
-            line-height: 1.6;
+        html {
+            scroll-behavior: smooth;
         }
 
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.6;
+            transition: background 0.3s ease, color 0.3s ease;
+        }
+        
+        /* --- General Purpose & Section Headers --- */
+        .section-header {
+            font-size: 1.75rem;
+            font-weight: 700;
+            color: var(--text-color);
+            margin-bottom: 0.5rem;
+        }
+        
+        /* --- Header & Dashboard --- */
         .header {
-            background: rgba(255, 255, 255, 0.95);
+            background: var(--header-bg);
             backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
             box-shadow: var(--shadow);
             padding: 2rem 0;
-            position: sticky;
-            top: 0;
-            z-index: 1000;
-            border-bottom: 1px solid var(--border);
+            border-bottom: 1px solid var(--border-color);
+            transition: background 0.3s ease, border-color 0.3s ease;
         }
 
         .header-content {
@@ -60,14 +93,15 @@
             font-weight: 800;
             background: linear-gradient(135deg, var(--primary), var(--secondary));
             -webkit-background-clip: text;
+            background-clip: text;
             -webkit-text-fill-color: transparent;
             margin-bottom: 0.5rem;
         }
 
         .hero p {
-            color: #64748b;
+            color: var(--text-color-secondary);
             font-size: 1.1rem;
-            margin-bottom: 0.5rem;
+            margin-bottom: 1rem;
         }
 
         .target-date {
@@ -82,22 +116,22 @@
 
         .stats-dashboard {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 1rem;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 1.5rem;
             margin-top: 2rem;
         }
 
         .stat-card {
-            background: white;
+            background: var(--card-color);
             border-radius: 16px;
             padding: 1.5rem;
             box-shadow: var(--shadow);
-            border: 1px solid var(--border);
-            transition: transform 0.2s ease, box-shadow 0.2s ease;
+            border: 1px solid var(--border-color);
+            transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.3s ease, border-color 0.3s ease;
         }
 
         .stat-card:hover {
-            transform: translateY(-2px);
+            transform: translateY(-4px);
             box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
         }
 
@@ -105,7 +139,6 @@
             display: flex;
             align-items: center;
             justify-content: space-between;
-            margin-bottom: 1rem;
         }
 
         .stat-icon {
@@ -115,48 +148,56 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 1.5rem;
+            font-size: 1.75rem;
             color: white;
         }
 
         .stat-icon.problems { background: var(--primary); }
         .stat-icon.projects { background: var(--secondary); }
-        .stat-icon.progress { background: var(--success); }
+        .stat-icon.progress-icon { background: var(--success); }
         .stat-icon.streak { background: var(--warning); }
 
         .stat-value {
-            font-size: 2rem;
+            font-size: 2.25rem;
             font-weight: 700;
-            color: var(--dark);
+            color: var(--text-color);
             margin-bottom: 0.25rem;
         }
 
         .stat-label {
-            color: #64748b;
+            color: var(--text-color-secondary);
             font-size: 0.875rem;
             font-weight: 500;
         }
-
-        .progress-ring {
-            width: 60px;
-            height: 60px;
+        
+        /* --- Daily Schedule --- */
+        .daily-schedule {
+            background: var(--card-color);
+            border-radius: 16px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: var(--shadow);
         }
-
-        .progress-ring circle {
-            fill: none;
-            stroke-width: 4;
+        .schedule-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1rem;
+            margin-top: 1.5rem;
         }
-
-        .progress-ring .bg {
-            stroke: #e2e8f0;
+        .schedule-item {
+            display: flex;
+            gap: 1rem;
+            padding: 1rem;
+            background: var(--bg-color);
+            border-radius: 8px;
+            border-left: 4px solid var(--primary);
+            align-items: center;
         }
+        .schedule-time { font-weight: 600; color: var(--primary); flex-shrink: 0; }
+        .schedule-activity { color: var(--text-color); }
+        .dark-mode .schedule-item { background: var(--border-color); }
 
-        .progress-ring .progress {
-            stroke: var(--primary);
-            stroke-linecap: round;
-            transition: stroke-dashoffset 0.5s ease;
-        }
-
+        /* --- Timeline & Phases --- */
         .container {
             max-width: 1200px;
             margin: 0 auto;
@@ -175,14 +216,10 @@
             top: 0;
             bottom: 0;
             width: 2px;
-            background: var(--border);
+            background: var(--border-color);
         }
 
-        .phase {
-            margin-bottom: 2rem;
-            position: relative;
-        }
-
+        .phase { margin-bottom: 2rem; position: relative; }
         .phase-marker {
             position: absolute;
             left: 1.25rem;
@@ -190,161 +227,86 @@
             width: 1.5rem;
             height: 1.5rem;
             border-radius: 50%;
-            background: white;
-            border: 3px solid var(--border);
+            background: var(--card-color);
+            border: 3px solid var(--border-color);
             transition: all 0.3s ease;
+            z-index: 10;
         }
-
-        .phase.completed .phase-marker {
-            background: var(--success);
-            border-color: var(--success);
-        }
-
+        .phase.completed .phase-marker { background: var(--success); border-color: var(--success); }
         .phase.active .phase-marker {
             background: var(--primary);
             border-color: var(--primary);
             box-shadow: 0 0 0 4px rgba(99, 102, 241, 0.2);
         }
 
-        .phase-content {
-            margin-left: 4rem;
-        }
-
+        .phase-content { margin-left: 4rem; }
         .phase-card {
-            background: white;
+            background: var(--card-color);
             border-radius: 16px;
             overflow: hidden;
             box-shadow: var(--shadow);
-            border: 1px solid var(--border);
+            border: 1px solid var(--border-color);
         }
-
         .phase-header {
             padding: 1.5rem;
             cursor: pointer;
             transition: background 0.2s ease;
-            border-bottom: 1px solid var(--border);
+            border-bottom: 1px solid var(--border-color);
         }
-
-        .phase-header:hover {
-            background: #f8fafc;
-        }
-
-        .phase-title {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            margin-bottom: 0.5rem;
-        }
-
-        .phase-name {
-            font-size: 1.5rem;
-            font-weight: 700;
-            color: var(--dark);
-        }
-
-        .phase-dates {
-            color: #64748b;
-            font-size: 0.9rem;
-            margin-bottom: 0.5rem;
-        }
-
-        .phase-stats {
-            display: flex;
-            gap: 2rem;
-            align-items: center;
-        }
-
-        .phase-progress {
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-        }
-
-        .phase-progress-bar {
-            width: 120px;
-            height: 6px;
-            background: #e2e8f0;
-            border-radius: 3px;
-            overflow: hidden;
-        }
-
-        .phase-progress-fill {
-            height: 100%;
-            background: var(--primary);
-            border-radius: 3px;
-            transition: width 0.5s ease;
-        }
-
+        .dark-mode .phase-header:hover { background: #374151; }
+        .phase-header:hover { background: #f8fafc; }
+        .phase-title { display: flex; align-items: center; justify-content: space-between; margin-bottom: 0.5rem; }
+        .phase-name { font-size: 1.5rem; font-weight: 700; color: var(--text-color); }
+        .phase-dates { color: var(--text-color-secondary); font-size: 0.9rem; margin-bottom: 0.5rem; }
+        
         .phase-body {
-            display: none;
-            padding: 0;
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.7s cubic-bezier(0.4, 0, 0.2, 1);
         }
-
-        .phase-body.expanded {
-            display: block;
-        }
-
-        .month-grid {
-            display: grid;
-            gap: 1px;
-            background: var(--border);
-        }
-
-        .month {
-            background: white;
-            padding: 1.5rem;
-        }
-
+        .phase-body.expanded { max-height: 10000px; }
+        
+        .month-grid { display: grid; gap: 1px; background: var(--border-color); }
+        .month { background: var(--card-color); padding: 1.5rem; }
         .month-header {
             display: flex;
             align-items: center;
-            justify-content: between;
+            justify-content: space-between;
             margin-bottom: 1rem;
             cursor: pointer;
         }
-
-        .month-title {
-            font-size: 1.25rem;
-            font-weight: 600;
-            color: var(--dark);
-        }
-
-        .month-progress {
-            margin-left: auto;
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-            font-size: 0.875rem;
-            color: #64748b;
-        }
-
+        .month-title { font-size: 1.25rem; font-weight: 600; color: var(--text-color); }
+        
         .month-tasks {
-            display: none;
-            margin-top: 1rem;
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.5s ease-in-out;
         }
-
-        .month-tasks.expanded {
-            display: block;
-        }
+        .month-tasks.expanded { max-height: 2000px; margin-top: 1rem; }
 
         .week {
             margin-bottom: 1.5rem;
             padding: 1rem;
-            background: #f8fafc;
+            background: var(--bg-color);
             border-radius: 12px;
             border-left: 4px solid var(--primary);
         }
-
-        .week.completed {
-            border-left-color: var(--success);
-            background: #f0fdf4;
+        .week.completed { border-left-color: var(--success); background: #f0fdf4; }
+        .dark-mode .week { background: #374151; }
+        .dark-mode .week.completed { background: #16653433; }
+        .week-title { font-weight: 600; margin-bottom: 0.75rem; color: var(--text-color); }
+        
+        .goals-check {
+            background-color: #f0fdf4;
+            border-left: 4px solid var(--success);
+            padding: 1rem;
+            margin-top: 1.5rem;
+            border-radius: 12px;
         }
-
-        .week-title {
-            font-weight: 600;
-            margin-bottom: 0.75rem;
-            color: var(--dark);
-        }
+        .dark-mode .goals-check { background-color: #16653433; }
+        .goals-check h4 { color: #15803d; margin-bottom: 0.5rem; }
+        .dark-mode .goals-check h4 { color: #4ade80; }
+        .goals-check ul { list-style-position: inside; padding-left: 0; }
 
         .task {
             display: flex;
@@ -352,175 +314,69 @@
             gap: 0.75rem;
             padding: 0.75rem;
             margin: 0.5rem 0;
-            background: white;
+            background: var(--card-color);
             border-radius: 8px;
             cursor: pointer;
             transition: all 0.2s ease;
             border: 1px solid transparent;
         }
-
-        .task:hover {
-            border-color: var(--primary);
-            transform: translateX(4px);
-        }
-
-        .task.completed {
-            background: #f0fdf4;
-            border-color: var(--success);
-        }
-
-        .task.completed .task-text {
-            text-decoration: line-through;
-            color: #6b7280;
-        }
-
+        .task:hover { border-color: var(--primary); transform: translateX(4px); }
+        .task.completed { border-color: var(--success); }
+        .dark-mode .task.completed { background: #16a34a21; }
+        .task.completed .task-text { text-decoration: line-through; color: var(--text-color-secondary); }
         .task-checkbox {
             width: 20px;
             height: 20px;
-            border: 2px solid var(--border);
+            border: 2px solid var(--border-color);
             border-radius: 4px;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 0.75rem;
             transition: all 0.2s ease;
             flex-shrink: 0;
+            font-size: 1rem;
+            color: transparent;
         }
+        .task.completed .task-checkbox { background: var(--success); border-color: var(--success); color: white; }
+        .task-text { flex: 1; font-size: 0.9rem; }
+        .project-task { border-left: 4px solid var(--warning); }
+        .project-task:hover { border-color: var(--warning); }
 
-        .task.completed .task-checkbox {
-            background: var(--success);
-            border-color: var(--success);
-            color: white;
-        }
-
-        .task-text {
-            flex: 1;
-            font-size: 0.9rem;
-        }
-
-        .task-xp {
-            font-size: 0.75rem;
-            color: var(--primary);
-            font-weight: 600;
-            background: rgba(99, 102, 241, 0.1);
-            padding: 0.25rem 0.5rem;
-            border-radius: 12px;
-        }
-
-        .project-task {
-            background: linear-gradient(135deg, #fef3c7, #fde68a);
-            border-left: 4px solid var(--warning);
-        }
-
-        .project-task:hover {
-            border-color: var(--warning);
-        }
-
-        .resources-section {
-            background: white;
+        /* --- Resources & Companies Section --- */
+        .info-section {
+            background: var(--card-color);
             border-radius: 16px;
             padding: 2rem;
-            margin: 2rem 0;
+            margin-top: 2rem;
             box-shadow: var(--shadow);
         }
-
-        .resources-grid {
+        .info-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
             gap: 1.5rem;
             margin-top: 1.5rem;
         }
-
-        .resource-category {
-            background: #f8fafc;
+        .info-card {
+            background: var(--bg-color);
             border-radius: 12px;
             padding: 1.5rem;
-            border: 1px solid var(--border);
+            border: 1px solid var(--border-color);
         }
-
-        .resource-title {
+        .dark-mode .info-card { background: var(--dark-bg); }
+        .info-card-title {
             font-weight: 600;
             color: var(--primary);
             margin-bottom: 1rem;
             font-size: 1.1rem;
         }
-
-        .resource-list {
-            list-style: none;
-        }
-
-        .resource-item {
+        .info-list { list-style: none; }
+        .info-list li {
             padding: 0.5rem 0;
-            border-bottom: 1px solid #e2e8f0;
+            border-bottom: 1px solid var(--border-color);
             font-size: 0.9rem;
-            color: #4b5563;
+            color: var(--text-color-secondary);
         }
-
-        .resource-item:last-child {
-            border-bottom: none;
-        }
-
-        .company-tiers {
-            background: white;
-            border-radius: 16px;
-            padding: 2rem;
-            margin: 2rem 0;
-            box-shadow: var(--shadow);
-        }
-
-        .tier-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 1.5rem;
-            margin-top: 1.5rem;
-        }
-
-        .tier-card {
-            border-radius: 12px;
-            padding: 1.5rem;
-            color: white;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .tier-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: inherit;
-            opacity: 0.9;
-        }
-
-        .tier-card > * {
-            position: relative;
-            z-index: 1;
-        }
-
-        .tier1 { background: linear-gradient(135deg, #f59e0b, #d97706); }
-        .tier2 { background: linear-gradient(135deg, #8b5cf6, #7c3aed); }
-        .tier3 { background: linear-gradient(135deg, #06b6d4, #0891b2); }
-
-        .tier-title {
-            font-size: 1.25rem;
-            font-weight: 700;
-            margin-bottom: 0.5rem;
-        }
-
-        .tier-salary {
-            font-size: 0.9rem;
-            opacity: 0.9;
-            margin-bottom: 1rem;
-        }
-
-        .company-list {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 0.5rem;
-        }
-
+        .info-list li:last-child { border-bottom: none; }
         .company-tag {
             background: rgba(255, 255, 255, 0.2);
             padding: 0.25rem 0.75rem;
@@ -528,7 +384,18 @@
             font-size: 0.8rem;
             font-weight: 500;
         }
+        .tier-card {
+            border-radius: 12px;
+            padding: 1.5rem;
+            color: white;
+        }
+        .tier1 { background: linear-gradient(135deg, #f59e0b, #d97706); }
+        .tier2 { background: linear-gradient(135deg, #8b5cf6, #7c3aed); }
+        .tier3 { background: linear-gradient(135deg, #06b6d4, #0891b2); }
+        .company-list { display: flex; flex-wrap: wrap; gap: 0.5rem; }
 
+
+        /* --- Floating Controls & Toasts --- */
         .floating-controls {
             position: fixed;
             bottom: 2rem;
@@ -538,7 +405,6 @@
             gap: 1rem;
             z-index: 100;
         }
-
         .control-btn {
             width: 56px;
             height: 56px;
@@ -546,7 +412,7 @@
             border: none;
             background: var(--primary);
             color: white;
-            font-size: 1.25rem;
+            font-size: 1.5rem;
             cursor: pointer;
             box-shadow: var(--shadow);
             display: flex;
@@ -554,39 +420,25 @@
             justify-content: center;
             transition: all 0.2s ease;
         }
-
-        .control-btn:hover {
-            background: var(--primary-dark);
-            transform: scale(1.05);
-        }
-
-        .control-btn.reset {
-            background: var(--danger);
-        }
-
-        .control-btn.reset:hover {
-            background: #dc2626;
-        }
+        .control-btn:hover { background: var(--primary-dark); transform: scale(1.05); }
+        .control-btn.reset { background: var(--danger); }
+        .control-btn.reset:hover { background: #dc2626; }
 
         .achievement-toast {
             position: fixed;
             top: 100px;
             right: 2rem;
-            background: white;
+            background: var(--card-color);
             border-radius: 12px;
             padding: 1rem 1.5rem;
             box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
             border-left: 4px solid var(--success);
-            transform: translateX(400px);
-            transition: transform 0.3s ease;
+            transform: translateX(calc(100% + 2rem));
+            transition: transform 0.4s cubic-bezier(0.25, 1, 0.5, 1);
             z-index: 1001;
             min-width: 300px;
         }
-
-        .achievement-toast.show {
-            transform: translateX(0);
-        }
-
+        .achievement-toast.show { transform: translateX(0); }
         .toast-header {
             display: flex;
             align-items: center;
@@ -596,69 +448,24 @@
             margin-bottom: 0.25rem;
         }
 
-        .daily-schedule {
-            background: white;
-            border-radius: 16px;
-            padding: 2rem;
-            margin: 2rem 0;
-            box-shadow: var(--shadow);
-        }
-
-        .schedule-grid {
-            display: grid;
-            gap: 1rem;
-            margin-top: 1.5rem;
-        }
-
-        .schedule-item {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 1rem;
-            background: #f8fafc;
-            border-radius: 8px;
-            border-left: 4px solid var(--primary);
-        }
-
-        .schedule-time {
-            font-weight: 600;
-            color: var(--primary);
-        }
-
-        .schedule-activity {
-            color: var(--dark);
-        }
-
+        /* --- Responsive Design --- */
         @media (max-width: 768px) {
-            .hero h1 {
-                font-size: 2rem;
-            }
-            
-            .stats-dashboard {
-                grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-            }
-            
-            .timeline::before {
-                left: 1rem;
-            }
-            
-            .phase-content {
-                margin-left: 2.5rem;
-            }
-            
-            .floating-controls {
-                bottom: 1rem;
-                right: 1rem;
-            }
+            .hero h1 { font-size: 2rem; }
+            .stats-dashboard { grid-template-columns: 1fr 1fr; }
+            .timeline::before { left: 1rem; }
+            .phase-content { margin-left: 2.5rem; }
+            .phase-marker { left: 0.25rem; }
+            .floating-controls { bottom: 1rem; right: 1rem; }
         }
     </style>
 </head>
 <body>
+    <!-- Header Section -->
     <div class="header">
         <div class="header-content">
             <div class="hero">
-                <h1>SRB's Placement Journey</h1>
-                <p>Samjith Raj Bondla's Path to Landing a ₹50+ LPA Job</p>
+                <h1>Samjith Raj Bondla's Placement Journey</h1>
+                <p>Path to Landing a ₹50+ LPA Opportunity</p>
                 <div class="target-date">🎯 Target: June 2026</div>
             </div>
             
@@ -669,50 +476,45 @@
                             <div class="stat-value" id="total-problems">0</div>
                             <div class="stat-label">Problems Solved</div>
                         </div>
-                        <div class="stat-icon problems">💻</div>
+                        <div class="stat-icon problems"><i class="ph-bold ph-code"></i></div>
                     </div>
                 </div>
-                
                 <div class="stat-card">
                     <div class="stat-header">
                         <div>
                             <div class="stat-value" id="total-projects">0</div>
                             <div class="stat-label">Projects Built</div>
                         </div>
-                        <div class="stat-icon projects">🚀</div>
+                        <div class="stat-icon projects"><i class="ph-bold ph-rocket-launch"></i></div>
                     </div>
                 </div>
-                
                 <div class="stat-card">
                     <div class="stat-header">
-                        <div>
+                         <div>
                             <div class="stat-value" id="overall-progress">0%</div>
                             <div class="stat-label">Overall Progress</div>
                         </div>
-                        <svg class="progress-ring" width="60" height="60">
-                            <circle class="bg" cx="30" cy="30" r="26" stroke-dasharray="163.36" stroke-dashoffset="0"></circle>
-                            <circle class="progress" cx="30" cy="30" r="26" stroke-dasharray="163.36" stroke-dashoffset="163.36" id="progress-circle"></circle>
-                        </svg>
+                        <div class="stat-icon progress-icon"><i class="ph-bold ph-chart-line-up"></i></div>
                     </div>
                 </div>
-                
                 <div class="stat-card">
                     <div class="stat-header">
                         <div>
                             <div class="stat-value" id="current-streak">0</div>
                             <div class="stat-label">Day Streak</div>
                         </div>
-                        <div class="stat-icon streak">🔥</div>
+                        <div class="stat-icon streak"><i class="ph-bold ph-fire"></i></div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
 
+    <!-- Main Content -->
     <div class="container">
-        <!-- Daily Schedule -->
+        <!-- Daily Schedule Section -->
         <div class="daily-schedule">
-            <h2>📅 Your Daily Battle Plan</h2>
+            <h2 class="section-header">📅 Daily Battle Plan</h2>
             <div class="schedule-grid">
                 <div class="schedule-item">
                     <div class="schedule-time">5:00-6:00 PM</div>
@@ -723,19 +525,18 @@
                     <div class="schedule-activity">Intensive DSA + Coding Practice</div>
                 </div>
                 <div class="schedule-item">
-                    <div class="schedule-time">Saturday Morning</div>
+                    <div class="schedule-time">Saturday AM</div>
                     <div class="schedule-activity">3-4 Hours Deep Practice</div>
                 </div>
                 <div class="schedule-item">
-                    <div class="schedule-time">Sunday Morning</div>
+                    <div class="schedule-time">Sunday AM</div>
                     <div class="schedule-activity">2-3 Hours + Project Work</div>
                 </div>
             </div>
         </div>
-
-        <!-- Timeline -->
+        
         <div class="timeline">
-            <!-- Phase 1: Foundation Building -->
+            <!-- Phase 1: Foundation Building (Sept 2025 - Dec 2025) -->
             <div class="phase active" data-phase="1">
                 <div class="phase-marker"></div>
                 <div class="phase-content">
@@ -745,132 +546,631 @@
                                 <div>
                                     <div class="phase-name">Phase 1: Foundation Building</div>
                                     <div class="phase-dates">September 2025 - December 2025</div>
-                                    <div class="phase-stats">
-                                        <div class="phase-progress">
-                                            <span id="phase1-text">0/4 months completed</span>
-                                            <div class="phase-progress-bar">
-                                                <div class="phase-progress-fill" id="phase1-progress" style="width: 0%"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="phase-body expanded" id="phase1-body">
+                            <div class="month-grid">
+                                <!-- September 2025 -->
+                                <div class="month" data-month="sept2025">
+                                    <div class="month-header" onclick="toggleMonth('sept2025')">
+                                        <div class="month-title">🍂 September 2025: DSA Basics</div>
+                                    </div>
+                                    <div class="month-tasks expanded" id="sept2025-tasks">
+                                        <div class="week">
+                                            <div class="week-title">Weeks 1-2: Arrays & Strings</div>
+                                            <div class="task" onclick="completeTask(this)" data-task="arrays-strings-theory" data-problems="0">
+                                                <div class="task-checkbox"><i class="ph-bold ph-check"></i></div>
+                                                <div class="task-text">Theory: Read concepts from GeeksforGeeks</div>
+                                            </div>
+                                            <div class="task" onclick="completeTask(this)" data-task="array-string-practice" data-problems="20">
+                                                <div class="task-checkbox"><i class="ph-bold ph-check"></i></div>
+                                                <div class="task-text">Practice: 20 easy LeetCode (Two Pointers, Sliding Window)</div>
+                                            </div>
+                                        </div>
+                                        <div class="week">
+                                            <div class="week-title">Weeks 3-4: Linked Lists & Stacks/Queues</div>
+                                            <div class="task" onclick="completeTask(this)" data-task="ll-stack-theory" data-problems="0">
+                                                <div class="task-checkbox"><i class="ph-bold ph-check"></i></div>
+                                                <div class="task-text">Theory: Linked list operations, stack applications</div>
+                                            </div>
+                                            <div class="task" onclick="completeTask(this)" data-task="ll-stack-practice" data-problems="30">
+                                                <div class="task-checkbox"><i class="ph-bold ph-check"></i></div>
+                                                <div class="task-text">Practice: 15 problems each on LL & Stacks</div>
+                                            </div>
+                                            <div class="task project-task" onclick="completeTask(this, true)" data-task="calculator-project">
+                                                <div class="task-checkbox"><i class="ph-bold ph-check"></i></div>
+                                                <div class="task-text">Project: Implement stack-based calculator in C++</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- October 2025 -->
+                                <div class="month" data-month="oct2025">
+                                    <div class="month-header" onclick="toggleMonth('oct2025')">
+                                        <div class="month-title">🎃 October 2025: Trees & Basic Recursion</div>
+                                    </div>
+                                     <div class="month-tasks" id="oct2025-tasks">
+                                        <div class="week">
+                                            <div class="week-title">Weeks 1-2: Binary Trees</div>
+                                            <div class="task" onclick="completeTask(this)" data-task="bt-theory" data-problems="0">
+                                                <div class="task-checkbox"><i class="ph-bold ph-check"></i></div>
+                                                <div class="task-text">Theory: Tree traversals, properties</div>
+                                            </div>
+                                            <div class="task" onclick="completeTask(this)" data-task="bt-practice" data-problems="25">
+                                                <div class="task-checkbox"><i class="ph-bold ph-check"></i></div>
+                                                <div class="task-text">Practice: 25 tree problems (DFS, BFS, construction)</div>
+                                            </div>
+                                        </div>
+                                        <div class="week">
+                                            <div class="week-title">Weeks 3-4: Binary Search Trees</div>
+                                             <div class="task" onclick="completeTask(this)" data-task="bst-theory" data-problems="0">
+                                                <div class="task-checkbox"><i class="ph-bold ph-check"></i></div>
+                                                <div class="task-text">Theory: BST properties, operations</div>
+                                            </div>
+                                            <div class="task" onclick="completeTask(this)" data-task="bst-practice" data-problems="20">
+                                                <div class="task-checkbox"><i class="ph-bold ph-check"></i></div>
+                                                <div class="task-text">Practice: 20 BST problems (search, insert, delete)</div>
+                                            </div>
+                                            <div class="task project-task" onclick="completeTask(this, true)" data-task="bst-visualizer">
+                                                <div class="task-checkbox"><i class="ph-bold ph-check"></i></div>
+                                                <div class="task-text">Project: Build BST visualization tool</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- November 2025 -->
+                                <div class="month" data-month="nov2025">
+                                    <div class="month-header" onclick="toggleMonth('nov2025')">
+                                        <div class="month-title">🦃 November 2025: Recursion & Backtracking</div>
+                                    </div>
+                                    <div class="month-tasks" id="nov2025-tasks">
+                                        <div class="week">
+                                            <div class="week-title">Weeks 1-2: Recursion Fundamentals</div>
+                                            <div class="task" onclick="completeTask(this)" data-task="recursion-practice" data-problems="20">
+                                                <div class="task-checkbox"><i class="ph-bold ph-check"></i></div>
+                                                <div class="task-text">Practice: 20 recursion problems (Factorial, Fibonacci)</div>
+                                            </div>
+                                        </div>
+                                        <div class="week">
+                                            <div class="week-title">Weeks 3-4: Backtracking</div>
+                                            <div class="task" onclick="completeTask(this)" data-task="backtracking-practice" data-problems="15">
+                                                <div class="task-checkbox"><i class="ph-bold ph-check"></i></div>
+                                                <div class="task-text">Practice: 15 backtracking problems (N-Queens, Sudoku)</div>
+                                            </div>
+                                            <div class="task project-task" onclick="completeTask(this, true)" data-task="sudoku-solver">
+                                                <div class="task-checkbox"><i class="ph-bold ph-check"></i></div>
+                                                <div class="task-text">Project: Sudoku solver with GUI</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- December 2025 -->
+                                <div class="month" data-month="dec2025">
+                                    <div class="month-header" onclick="toggleMonth('dec2025')">
+                                        <div class="month-title">🎄 December 2025: Graphs Basics</div>
+                                    </div>
+                                    <div class="month-tasks" id="dec2025-tasks">
+                                        <div class="week">
+                                            <div class="week-title">Weeks 1-2: Traversal</div>
+                                            <div class="task" onclick="completeTask(this)" data-task="graph-traversal-practice" data-problems="20">
+                                                <div class="task-checkbox"><i class="ph-bold ph-check"></i></div>
+                                                <div class="task-text">Practice: 20 problems (DFS, BFS, cycle detection)</div>
+                                            </div>
+                                        </div>
+                                        <div class="week">
+                                            <div class="week-title">Weeks 3-4: Shortest Path</div>
+                                            <div class="task" onclick="completeTask(this)" data-task="shortest-path-practice" data-problems="15">
+                                                <div class="task-checkbox"><i class="ph-bold ph-check"></i></div>
+                                                <div class="task-text">Practice: 15 problems (Dijkstra's, Bellman-Ford)</div>
+                                            </div>
+                                            <div class="task project-task" onclick="completeTask(this, true)" data-task="path-visualizer">
+                                                <div class="task-checkbox"><i class="ph-bold ph-check"></i></div>
+                                                <div class="task-text">Project: Path-finding visualizer</div>
+                                            </div>
+                                        </div>
+                                        <div class="goals-check">
+                                            <h4>December Goals Check:</h4>
+                                            <ul>
+                                                <li>✅ 150+ LeetCode problems solved</li>
+                                                <li>✅ Strong foundation in basic DSA</li>
+                                                <li>✅ 4 C++ projects completed</li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Phase 2: Intermediate to Advanced (Jan 2026 - Mar 2026) -->
+            <div class="phase" data-phase="2">
+                <div class="phase-marker"></div>
+                <div class="phase-content">
+                    <div class="phase-card">
+                        <div class="phase-header" onclick="togglePhase(2)">
+                            <div class="phase-title">
+                                <div>
+                                    <div class="phase-name">Phase 2: Intermediate to Advanced</div>
+                                    <div class="phase-dates">January 2026 - March 2026</div>
+                                </div>
+                            </div>
+                        </div>
+                         <div class="phase-body" id="phase2-body">
+                             <div class="month-grid">
+                                <!-- January 2026 -->
+                                <div class="month" data-month="jan2026">
+                                    <div class="month-header" onclick="toggleMonth('jan2026')">
+                                        <div class="month-title">🎉 January 2026: Dynamic Programming</div>
+                                    </div>
+                                     <div class="month-tasks" id="jan2026-tasks">
+                                        <div class="week">
+                                            <div class="week-title">Week 1: DP Fundamentals</div>
+                                            <div class="task" onclick="completeTask(this)" data-task="dp-fundamentals" data-problems="15">
+                                                <div class="task-checkbox"><i class="ph-bold ph-check"></i></div>
+                                                <div class="task-text">Practice: 15 basic DP problems (Fibonacci, Coin Change)</div>
+                                            </div>
+                                        </div>
+                                        <div class="week">
+                                            <div class="week-title">Weeks 2-3: Classic DP Patterns</div>
+                                            <div class="task" onclick="completeTask(this)" data-task="dp-patterns" data-problems="25">
+                                                <div class="task-checkbox"><i class="ph-bold ph-check"></i></div>
+                                                <div class="task-text">Practice: 25 problems (Knapsack, LIS, LCS)</div>
+                                            </div>
+                                        </div>
+                                        <div class="week">
+                                            <div class="week-title">Week 4: Advanced DP</div>
+                                            <div class="task" onclick="completeTask(this)" data-task="dp-advanced" data-problems="15">
+                                                <div class="task-checkbox"><i class="ph-bold ph-check"></i></div>
+                                                <div class="task-text">Practice: 15 advanced problems (Matrix Chain)</div>
+                                            </div>
+                                            <div class="task project-task" onclick="completeTask(this, true)" data-task="dp-visualizer">
+                                                <div class="task-checkbox"><i class="ph-bold ph-check"></i></div>
+                                                <div class="task-text">Project: DP problem solver with step visualization</div>
+                                            </div>
+                                        </div>
+                                     </div>
+                                </div>
+                                <!-- February 2026 -->
+                                <div class="month" data-month="feb2026">
+                                    <div class="month-header" onclick="toggleMonth('feb2026')">
+                                        <div class="month-title">❤️ February 2026: Advanced Data Structures</div>
+                                    </div>
+                                    <div class="month-tasks" id="feb2026-tasks">
+                                        <div class="week">
+                                            <div class="week-title">Weeks 1-2: Heaps & Priority Queues</div>
+                                            <div class="task" onclick="completeTask(this)" data-task="heap-practice" data-problems="20">
+                                                <div class="task-checkbox"><i class="ph-bold ph-check"></i></div>
+                                                <div class="task-text">Practice: 20 Heap problems (Top K, Merge K lists)</div>
+                                            </div>
+                                        </div>
+                                        <div class="week">
+                                            <div class="week-title">Weeks 3-4: Advanced Trees</div>
+                                            <div class="task" onclick="completeTask(this)" data-task="advanced-trees-practice" data-problems="25">
+                                                <div class="task-checkbox"><i class="ph-bold ph-check"></i></div>
+                                                <div class="task-text">Practice: 25 problems (Tries, Segment Trees)</div>
+                                            </div>
+                                            <div class="task project-task" onclick="completeTask(this, true)" data-task="autocomplete-tries">
+                                                <div class="task-checkbox"><i class="ph-bold ph-check"></i></div>
+                                                <div class="task-text">Project: Auto-complete system using Tries</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- March 2026 -->
+                                <div class="month" data-month="mar2026">
+                                    <div class="month-header" onclick="toggleMonth('mar2026')">
+                                        <div class="month-title">🍀 March 2026: System Design & Advanced Algorithms</div>
+                                    </div>
+                                    <div class="month-tasks" id="mar2026-tasks">
+                                        <div class="week">
+                                            <div class="week-title">Weeks 1-2: System Design Basics & Greedy</div>
+                                            <div class="task" onclick="completeTask(this)" data-task="system-design-basics" data-problems="0">
+                                                <div class="task-checkbox"><i class="ph-bold ph-check"></i></div>
+                                                <div class="task-text">Study: "Designing Data-Intensive Applications" Ch 1-4</div>
+                                            </div>
+                                            <div class="task" onclick="completeTask(this)" data-task="greedy-practice" data-problems="15">
+                                                <div class="task-checkbox"><i class="ph-bold ph-check"></i></div>
+                                                <div class="task-text">Practice: 15 Greedy Algorithm problems</div>
+                                            </div>
+                                        </div>
+                                        <div class="week">
+                                            <div class="week-title">Weeks 3-4: Advanced Graph Algorithms</div>
+                                            <div class="task" onclick="completeTask(this)" data-task="advanced-graph-practice" data-problems="20">
+                                                <div class="task-checkbox"><i class="ph-bold ph-check"></i></div>
+                                                <div class="task-text">Practice: 20 problems (MST, Topological Sort)</div>
+                                            </div>
+                                            <div class="task project-task" onclick="completeTask(this, true)" data-task="network-analyzer">
+                                                <div class="task-checkbox"><i class="ph-bold ph-check"></i></div>
+                                                <div class="task-text">Project: Network topology analyzer</div>
+                                            </div>
+                                        </div>
+                                         <div class="goals-check">
+                                            <h4>March Goals Check:</h4>
+                                            <ul>
+                                                <li>✅ 350+ LeetCode problems solved</li>
+                                                <li>✅ DP mastery achieved</li>
+                                                <li>✅ System design fundamentals learned</li>
+                                                <li>✅ 8 substantial projects completed</li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                             </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Phase 3: Interview Preparation (Apr 2026 - June 2026) -->
+            <div class="phase" data-phase="3">
+                <div class="phase-marker"></div>
+                <div class="phase-content">
+                    <div class="phase-card">
+                        <div class="phase-header" onclick="togglePhase(3)">
+                            <div class="phase-title">
+                                <div>
+                                    <div class="phase-name">Phase 3: Interview Preparation & Job Hunt</div>
+                                    <div class="phase-dates">April 2026 - June 2026</div>
+                                </div>
+                            </div>
+                        </div>
+                         <div class="phase-body" id="phase3-body">
+                            <div class="month-grid">
+                                <!-- April 2026 -->
+                                <div class="month" data-month="apr2026">
+                                    <div class="month-header" onclick="toggleMonth('apr2026')">
+                                        <div class="month-title">🌱 April 2026: Contest Prep & Hard Problems</div>
+                                    </div>
+                                     <div class="month-tasks" id="apr2026-tasks">
+                                        <div class="week">
+                                            <div class="week-title">Weeks 1-2: Competitive Programming</div>
+                                            <div class="task" onclick="completeTask(this)" data-task="contests" data-problems="0">
+                                                <div class="task-checkbox"><i class="ph-bold ph-check"></i></div>
+                                                <div class="task-text">Practice: Participate in CodeChef/Codeforces contests</div>
+                                            </div>
+                                            <div class="task" onclick="completeTask(this)" data-task="hard-problems-apr" data-problems="14">
+                                                <div class="task-checkbox"><i class="ph-bold ph-check"></i></div>
+                                                <div class="task-text">Focus: Solve 1 Hard LeetCode problem daily</div>
+                                            </div>
+                                        </div>
+                                        <div class="week">
+                                            <div class="week-title">Weeks 3-4: Mock Interviews</div>
+                                            <div class="task" onclick="completeTask(this)" data-task="mock-interviews-apr" data-problems="0">
+                                                <div class="task-checkbox"><i class="ph-bold ph-check"></i></div>
+                                                <div class="task-text">Practice: 2 mock interviews per week (Pramp, InterviewBit)</div>
+                                            </div>
+                                             <div class="task project-task" onclick="completeTask(this, true)" data-task="chat-app">
+                                                <div class="task-checkbox"><i class="ph-bold ph-check"></i></div>
+                                                <div class="task-text">Project: Distributed chat application</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- May 2026 -->
+                                <div class="month" data-month="may2026">
+                                    <div class="month-header" onclick="toggleMonth('may2026')">
+                                        <div class="month-title">🌸 May 2026: Intensive Interview Prep</div>
+                                    </div>
+                                    <div class="month-tasks" id="may2026-tasks">
+                                        <div class="week">
+                                            <div class="week-title">Weeks 1-2: FAANG-Level & Company-Specific</div>
+                                             <div class="task" onclick="completeTask(this)" data-task="faang-problems" data-problems="30">
+                                                <div class="task-checkbox"><i class="ph-bold ph-check"></i></div>
+                                                <div class="task-text">Focus: 30 hard problems from top companies</div>
+                                            </div>
+                                            <div class="task" onclick="completeTask(this)" data-task="system-design-faang" data-problems="0">
+                                                <div class="task-checkbox"><i class="ph-bold ph-check"></i></div>
+                                                <div class="task-text">System Design: Design Twitter, Uber, Netflix</div>
+                                            </div>
+                                        </div>
+                                        <div class="week">
+                                            <div class="week-title">Weeks 3-4: Final Polish</div>
+                                            <div class="task" onclick="completeTask(this)" data-task="speed-accuracy" data-problems="20">
+                                                <div class="task-checkbox"><i class="ph-bold ph-check"></i></div>
+                                                <div class="task-text">Focus: Solve medium problems in < 20 mins</div>
+                                            </div>
+                                            <div class="task project-task" onclick="completeTask(this, true)" data-task="final-project">
+                                                <div class="task-checkbox"><i class="ph-bold ph-check"></i></div>
+                                                <div class="task-text">Project: Final capstone project (ML inference engine)</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- June 2026 -->
+                                <div class="month" data-month="june2026">
+                                    <div class="month-header" onclick="toggleMonth('june2026')">
+                                        <div class="month-title">💼 June 2026: Interview Execution</div>
+                                    </div>
+                                    <div class="month-tasks" id="june2026-tasks">
+                                        <div class="week">
+                                            <div class="week-title">Execution Month</div>
+                                            <div class="task" onclick="completeTask(this)" data-task="apply" data-problems="0">
+                                                <div class="task-checkbox"><i class="ph-bold ph-check"></i></div>
+                                                <div class="task-text">Applications: Sent in April-May, follow up</div>
+                                            </div>
+                                            <div class="task" onclick="completeTask(this)" data-task="interview" data-problems="0">
+                                                <div class="task-checkbox"><i class="ph-bold ph-check"></i></div>
+                                                <div class="task-text">Interviews: Execute with confidence</div>
+                                            </div>
+                                            <div class="task" onclick="completeTask(this)" data-task="negotiate" data-problems="0">
+                                                <div class="task-checkbox"><i class="ph-bold ph-check"></i></div>
+                                                <div class="task-text">Negotiation: Multiple offers strategy</div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        
-                        <div class="phase-body" id="phase1-body">
-                            <div class="month-grid">
-                                <!-- September 2025 -->
-                                <div class="month" data-month="sept2025">
-                                    <div class="month-header" onclick="toggleMonth('sept2025')">
-                                        <div class="month-title">🍂 September 2025: DSA Basics</div>
-                                        <div class="month-progress">
-                                            <span id="sept2025-progress">0/6 tasks</span>
-                                        </div>
-                                    </div>
-                                    <div class="month-tasks" id="sept2025-tasks">
-                                        <div class="week">
-                                            <div class="week-title">Week 1-2: Arrays & Strings 📊</div>
-                                            <div class="task" onclick="completeTask(this, 15)" data-task="arrays-strings-theory">
-                                                <div class="task-checkbox">✓</div>
-                                                <div class="task-text">Study Arrays & Strings theory from GeeksforGeeks</div>
-                                                <div class="task-xp">+15 XP</div>
-                                            </div>
-                                            <div class="task" onclick="completeTask(this, 25)" data-task="two-pointers">
-                                                <div class="task-checkbox">✓</div>
-                                                <div class="task-text">Master Two Pointers technique (8 problems)</div>
-                                                <div class="task-xp">+25 XP</div>
-                                            </div>
-                                            <div class="task" onclick="completeTask(this, 25)" data-task="sliding-window">
-                                                <div class="task-checkbox">✓</div>
-                                                <div class="task-text">Practice Sliding Window problems (7 problems)</div>
-                                                <div class="task-xp">+25 XP</div>
-                                            </div>
-                                            <div class="task" onclick="completeTask(this, 20)" data-task="string-patterns">
-                                                <div class="task-checkbox">✓</div>
-                                                <div class="task-text">Solve String Pattern Matching (5 problems)</div>
-                                                <div class="task-xp">+20 XP</div>
-                                            </div>
-                                        </div>
-                                        
-                                        <div class="week">
-                                            <div class="week-title">Week 3-4: Linked Lists & Stacks/Queues ⛓️</div>
-                                            <div class="task" onclick="completeTask(this, 30)" data-task="linked-list-problems">
-                                                <div class="task-checkbox">✓</div>
-                                                <div class="task-text">Solve 15 Linked List problems (reverse, detect cycles)</div>
-                                                <div class="task-xp">+30 XP</div>
-                                            </div>
-                                            <div class="task project-task" onclick="completeTask(this, 50, true)" data-task="calculator-project">
-                                                <div class="task-checkbox">✓</div>
-                                                <div class="task-text">🏗️ Build Stack-based Calculator in C++</div>
-                                                <div class="task-xp">+50 XP</div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
+                    </div>
+                </div>
+            </div>
+        </div>
 
-                                <!-- October 2025 -->
-                                <div class="month" data-month="oct2025">
-                                    <div class="month-header" onclick="toggleMonth('oct2025')">
-                                        <div class="month-title">🎃 October 2025: Trees & Recursion</div>
-                                        <div class="month-progress">
-                                            <span id="oct2025-progress">0/4 tasks</span>
-                                        </div>
-                                    </div>
-                                    <div class="month-tasks" id="oct2025-tasks">
-                                        <div class="week">
-                                            <div class="week-title">Week 1-2: Binary Trees 🌳</div>
-                                            <div class="task" onclick="completeTask(this, 35)" data-task="tree-problems">
-                                                <div class="task-checkbox">✓</div>
-                                                <div class="task-text">Solve 25 Binary Tree problems (DFS, BFS, construction)</div>
-                                                <div class="task-xp">+35 XP</div>
-                                            </div>
-                                            <div class="task" onclick="completeTask(this, 20)" data-task="cpp-stl">
-                                                <div class="task-checkbox">✓</div>
-                                                <div class="task-text">Master C++ STL usage & memory management</div>
-                                                <div class="task-xp">+20 XP</div>
-                                            </div>
-                                        </div>
-                                        
-                                        <div class="week">
-                                            <div class="week-title">Week 3-4: Binary Search Trees 🔍</div>
-                                            <div class="task" onclick="completeTask(this, 30)" data-task="bst-problems">
-                                                <div class="task-checkbox">✓</div>
-                                                <div class="task-text">Solve 20 BST problems (search, insert, delete)</div>
-                                                <div class="task-xp">+30 XP</div>
-                                            </div>
-                                            <div class="task project-task" onclick="completeTask(this, 60, true)" data-task="bst-visualizer">
-                                                <div class="task-checkbox">✓</div>
-                                                <div class="task-text">🏗️ Build BST Visualization Tool</div>
-                                                <div class="task-xp">+60 XP</div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
+        <!-- Resources Section -->
+        <div class="info-section">
+            <h2 class="section-header">📚 Detailed Resource List</h2>
+            <div class="info-grid">
+                <div class="info-card">
+                    <h3 class="info-card-title">DSA Resources</h3>
+                    <ul class="info-list">
+                        <li><b>Primary:</b> Striver's A2Z DSA Sheet</li>
+                        <li><b>Practice:</b> LeetCode Premium, GeeksforGeeks</li>
+                        <li><b>Theory:</b> Abdul Bari (YouTube), CLRS</li>
+                        <li><b>C++ Specific:</b> "Effective C++" by Scott Meyers</li>
+                    </ul>
+                </div>
+                <div class="info-card">
+                    <h3 class="info-card-title">System Design Resources</h3>
+                    <ul class="info-list">
+                        <li><b>Books:</b> "Designing Data-Intensive Applications", Alex Xu's books</li>
+                        <li><b>Online:</b> Grokking System Design, High Scalability blog</li>
+                        <li><b>Videos:</b> Gaurav Sen, Tech Dummies</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Target Companies Section -->
+        <div class="info-section">
+            <h2 class="section-header">🎯 Target Companies</h2>
+            <div class="info-grid">
+                <div class="info-card tier-card tier1">
+                    <h3 class="info-card-title">Tier 1 (Target: 15 applications)</h3>
+                    <div class="company-list">
+                        <span class="company-tag">Google</span><span class="company-tag">Microsoft</span><span class="company-tag">Amazon</span><span class="company-tag">Meta</span><span class="company-tag">Apple</span><span class="company-tag">Netflix</span>
+                    </div>
+                </div>
+                <div class="info-card tier-card tier2">
+                    <h3 class="info-card-title">Tier 2 (Target: 20 applications)</h3>
+                    <div class="company-list">
+                        <span class="company-tag">Salesforce</span><span class="company-tag">Adobe</span><span class="company-tag">Nvidia</span><span class="company-tag">Oracle</span><span class="company-tag">VMware</span>
+                    </div>
+                </div>
+                <div class="info-card tier-card tier3">
+                    <h3 class="info-card-title">Tier 3 (Target: 15+ applications)</h3>
+                    <div class="company-list">
+                        <span class="company-tag">Startups</span><span class="company-tag">Mid-size</span><span class="company-tag">Backups</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 
-                                <!-- November 2025 -->
-                                <div class="month" data-month="nov2025">
-                                    <div class="month-header" onclick="toggleMonth('nov2025')">
-                                        <div class="month-title">🦃 November 2025: Recursion & Backtracking</div>
-                                        <div class="month-progress">
-                                            <span id="nov2025-progress">0/3 tasks</span>
-                                        </div>
-                                    </div>
-                                    <div class="month-tasks" id="nov2025-tasks">
-                                        <div class="week">
-                                            <div class="week-title">Week 1-2: Recursion Fundamentals 🔄</div>
-                                            <div class="task" onclick="completeTask(this, 25)" data-task="recursion-problems">
-                                                <div class="task-checkbox">✓</div>
-                                                <div class="task-text">Solve 20 recursion problems (factorial, Fibonacci, trees)</div>
-                                                <div class="task-xp">+25 XP</div>
-                                            </div>
-                                        </div>
-                                        
-                                        <div class="week">
-                                            <div class="week-title">Week 3-4: Backtracking 🔙</div>
-                                            <div class="task" onclick="completeTask(this, 30)" data-task="backtracking-problems">
-                                                <div class="task-checkbox">✓</div>
-                                                <div class="task-text">Solve 15 backtracking problems (N-Queens, Sudoku)</div>
-                                                <div class="task-xp">+30 XP</div>
-                                            </div>
-                                            <div class="task project-task" onclick="completeTask(this, 70, true)" data-task="sudoku-solver">
-                                                <div
+    <!-- Floating UI Controls -->
+    <div class="floating-controls">
+         <button class="control-btn" id="theme-toggle" title="Toggle Theme">
+            <i class="ph-bold ph-moon"></i>
+        </button>
+        <button class="control-btn reset" id="reset-progress" title="Reset Progress">
+            <i class="ph-bold ph-trash"></i>
+        </button>
+    </div>
+
+    <!-- Achievement Notification -->
+    <div class="achievement-toast" id="achievement-toast">
+        <div class="toast-header">
+            <i class="ph-bold ph-confetti"></i>
+            <span>Achievement Unlocked!</span>
+        </div>
+        <div class="toast-body" id="toast-message"></div>
+    </div>
+
+    <script>
+    document.addEventListener('DOMContentLoaded', () => {
+        // --- STATE MANAGEMENT & CONFIGURATION ---
+        const state = {
+            completedTasks: new Set(),
+            streak: { count: 0, lastCompleted: null },
+            unlockedAchievements: new Set()
+        };
+
+        // All achievements are defined here for easy management
+        const achievements = [
+            { id: 'first_task', condition: () => state.completedTasks.size >= 1, message: 'Your journey has begun!' },
+            { id: 'first_10_problems', condition: (p, _) => p >= 10, message: 'Solved 10 problems! Keep it up.' },
+            { id: 'first_project', condition: (_, proj) => proj >= 1, message: 'First project built! 🚀' },
+            { id: 'streak_3_days', condition: () => state.streak.count >= 3, message: '3-Day Streak! You\'re on fire! 🔥' },
+            { id: 'phase_1_complete', condition: () => isPhaseComplete(1), message: 'Phase 1 Complete! Foundation is strong.' }
+        ];
+
+        const allTasks = document.querySelectorAll('.task');
+
+        // --- DATA PERSISTENCE (using Local Storage) ---
+        const saveData = () => {
+            const dataToSave = {
+                completedTasks: Array.from(state.completedTasks),
+                streak: state.streak,
+                unlockedAchievements: Array.from(state.unlockedAchievements),
+                theme: document.body.classList.contains('dark-mode') ? 'dark' : 'light'
+            };
+            localStorage.setItem('srbPlacementJourney', JSON.stringify(dataToSave));
+        };
+
+        const loadData = () => {
+            const savedData = JSON.parse(localStorage.getItem('srbPlacementJourney'));
+            if (!savedData) return;
+
+            // Restore state from saved data
+            state.completedTasks = new Set(savedData.completedTasks);
+            state.unlockedAchievements = new Set(savedData.unlockedAchievements || []);
+            if (savedData.streak) state.streak = savedData.streak;
+            
+            // Restore theme
+            if (savedData.theme === 'dark') {
+                document.body.classList.add('dark-mode');
+                document.getElementById('theme-toggle').innerHTML = '<i class="ph-bold ph-sun"></i>';
+            }
+            
+            updateUIFromState();
+        };
+
+        // --- CORE LOGIC ---
+        window.completeTask = (element) => {
+            const taskId = element.dataset.task;
+            element.classList.toggle('completed');
+
+            if (state.completedTasks.has(taskId)) {
+                state.completedTasks.delete(taskId);
+            } else {
+                state.completedTasks.add(taskId);
+                updateStreak();
+            }
+            
+            updateAllStats();
+            saveData();
+        };
+
+        const updateStreak = () => {
+            const today = new Date().toDateString();
+            if (!state.streak.lastCompleted || state.streak.lastCompleted === today) {
+                // If they complete another task today, streak doesn't change
+                if (!state.streak.lastCompleted) state.streak.count = 1;
+            } else {
+                const lastDate = new Date(state.streak.lastCompleted);
+                const yesterday = new Date();
+                yesterday.setDate(yesterday.getDate() - 1);
+
+                if (lastDate.toDateString() === yesterday.toDateString()) {
+                    state.streak.count++; // Continued the streak
+                } else {
+                    state.streak.count = 1; // Broke the streak
+                }
+            }
+            state.streak.lastCompleted = today;
+        };
+        
+        // --- UI INTERACTIONS & ANIMATIONS ---
+        const updateUIFromState = () => {
+            allTasks.forEach(task => {
+                const taskId = task.dataset.task;
+                task.classList.toggle('completed', state.completedTasks.has(taskId));
+            });
+            updateAllStats();
+        };
+        
+        window.togglePhase = (phaseNum) => {
+            document.getElementById(`phase${phaseNum}-body`).classList.toggle('expanded');
+        };
+
+        window.toggleMonth = (monthId) => {
+            document.getElementById(`${monthId}-tasks`).classList.toggle('expanded');
+        };
+        
+        const animateValue = (element, start, end, duration, isPercent = false) => {
+            if (start === end) {
+                element.innerHTML = `${end}${isPercent ? '%' : ''}`;
+                return;
+            }
+            let startTimestamp = null;
+            const step = (timestamp) => {
+                if (!startTimestamp) startTimestamp = timestamp;
+                const progress = Math.min((timestamp - startTimestamp) / duration, 1);
+                const currentValue = Math.floor(progress * (end - start) + start);
+                element.innerHTML = `${currentValue}${isPercent ? '%' : ''}`;
+                if (progress < 1) window.requestAnimationFrame(step);
+            };
+            window.requestAnimationFrame(step);
+        };
+        
+        const updateAllStats = () => {
+            const problemCount = Array.from(state.completedTasks).reduce((acc, id) => {
+                const taskEl = document.querySelector(`[data-task="${id}"]`);
+                return acc + (parseInt(taskEl.dataset.problems, 10) || 0);
+            }, 0);
+            
+            const completedProjects = document.querySelectorAll('.task.project-task.completed').length;
+            const overallProgress = allTasks.length > 0 ? Math.round((state.completedTasks.size / allTasks.length) * 100) : 0;
+            
+            // Animate dashboard values
+            animateValue(document.getElementById('total-problems'), 0, problemCount, 500);
+            animateValue(document.getElementById('total-projects'), 0, completedProjects, 500);
+            animateValue(document.getElementById('overall-progress'), 0, overallProgress, 500, true);
+            document.getElementById('current-streak').innerText = state.streak.count || 0;
+            
+            checkAchievements(problemCount, completedProjects);
+        };
+
+        // --- ACHIEVEMENTS ---
+        const showToast = (message) => {
+            const toast = document.getElementById('achievement-toast');
+            document.getElementById('toast-message').innerText = message;
+            toast.classList.add('show');
+            setTimeout(() => toast.classList.remove('show'), 4000);
+        };
+
+        const isPhaseComplete = (phaseNum) => {
+            const phaseTasks = document.querySelectorAll(`.phase[data-phase='${phaseNum}'] .task`);
+            return Array.from(phaseTasks).every(task => state.completedTasks.has(task.dataset.task));
+        };
+
+        const checkAchievements = (problemCount, projectCount) => {
+            achievements.forEach(ach => {
+                if (!state.unlockedAchievements.has(ach.id) && ach.condition(problemCount, projectCount)) {
+                    state.unlockedAchievements.add(ach.id);
+                    showToast(ach.message);
+                }
+            });
+        };
+
+        // --- EVENT LISTENERS ---
+        document.getElementById('reset-progress').addEventListener('click', () => {
+            if (confirm('Are you sure you want to reset all your progress? This cannot be undone.')) {
+                localStorage.removeItem('srbPlacementJourney');
+                window.location.reload();
+            }
+        });
+
+        document.getElementById('theme-toggle').addEventListener('click', () => {
+            document.body.classList.toggle('dark-mode');
+            const isDark = document.body.classList.contains('dark-mode');
+            document.getElementById('theme-toggle').innerHTML = isDark ? '<i class="ph-bold ph-sun"></i>' : '<i class="ph-bold ph-moon"></i>';
+            saveData();
+        });
+
+        // --- HIDE HEADER ON SCROLL ---
+        const header = document.querySelector('.header');
+        let lastScrollY = window.scrollY;
+
+        window.addEventListener('scroll', () => {
+            const currentScrollY = window.scrollY;
+
+            if (currentScrollY > lastScrollY && currentScrollY > header.offsetHeight) {
+                // Scrolling down
+                header.classList.add('header--hidden');
+            } else if (currentScrollY < lastScrollY) {
+                // Scrolling up
+                header.classList.remove('header--hidden');
+            }
+            lastScrollY = currentScrollY <= 0 ? 0 : currentScrollY; 
+        });
+
+        // --- INITIALIZATION ---
+        loadData();
+    });
+    </script>
+</body>
+</html>
+
