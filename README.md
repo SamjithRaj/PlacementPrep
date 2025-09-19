@@ -7,19 +7,6 @@ A meticulous, interactive dashboard to track and visualize the entire preparatio
 </p>
 
 <p align="center">
-<a href="#">
-<img src="https://www.google.com/search?q=https://img.shields.io/badge/Live%2520Demo-View%2520Here-2ea44f%3Fstyle%3Dfor-the-badge%26logo%3Dnetlify" alt="Live Demo">
-</a>
-<a href="#">
-<img src="https://www.google.com/search?q=https://img.shields.io/badge/Status-In%2520Progress-blue%3Fstyle%3Dfor-the-badge" alt="Status">
-</a>
-</p>
-
-<p align="center">
-<em>(Update the "Live Demo" link above once you host the project!)</em>
-</p>
-
-<p align="center">
 <img src="https://www.google.com/search?q=https://placehold.co/1200x600/111827/FFFFFF/png%3Ftext%3DApplication%2BShowcase" alt="Placement Journey Tracker Showcase">
 </p>
 
